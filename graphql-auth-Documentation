@@ -1,0 +1,82 @@
+GraphQL Auth Project Documentation
+==================================
+
+1. Sign Up
+----------
+
+Description:
+Allows a new user to sign up with their username, and password.
+
+Usage:
+mutation SignUp($input: SignUpInput!) {
+  signup(signUpInput: $input) {
+    message
+  }
+}
+
+Input:
+{
+  "input": {
+    "username": "test4",
+    "password": "test"
+  }
+}
+
+2. Sign In
+----------
+
+Description:
+Allows an existing user to sign in with their username and password. On successful sign in a jwt token is generated and also added as a cookie to be sent to the frontend.
+
+Usage:
+mutation SignIn($input: SignInInput!) {
+  signin(signInInput: $input) {
+    token
+    user {
+      email
+      username
+    }
+    message
+  }
+}
+
+Input:
+{
+  "input": {
+    "username": "test",
+    "password": "test"
+  }
+}
+
+3. Logout
+---------
+
+Description:
+Logs out a user from the system.
+
+Usage:
+mutation Logout($id: Int!) {
+  logout(id: $id) {
+    message
+    loggedOut
+  }
+}
+
+Input:
+{
+  "id": 3
+}
+
+4. Hello
+--------
+
+Description:
+Retrieves a greeting. Requires authentication.
+
+Usage:
+query Hello {
+  hello
+}
+
+Explanation:
+The Hello query retrieves a greeting from the server. However, it's only accessible to authenticated users. Users need to sign in before accessing this query. If a user attempts to access it without authentication, an error will be returned.
